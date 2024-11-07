@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete Page</title>
+    <link rel="shortcut icon" href="{% static '/images/catppuccin--todo.svg' %}" type="image/x-icon">
+
+</head>
+
+
+<style>
+
+body{
+    background: linear-gradient(to right, rgb(179, 131, 131), blue);
+    color: #fff;
+   
+
+}
+
+.container{
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    align-items: center;
+    margin-top: 40px;
+    
+}
+span{
+    color: black;
+    font-weight: bold;
+    font-size: 1.1em;
+    margin-bottom: 10px;
+ 
+}
+h2{
+    text-align: center;
+    color: #fff;
+
+}
+.container2{
+    display: flex;
+    flex-direction: row;
+    gap: 50px;
+    margin-top: 30px;
+
+    a{
+        text-decoration: none;
+        color: #fff;
+        background: red;
+        padding: 10px 20px;
+        border-radius: 5px;
+        
+    }
+
+    a:hover{
+        background: darkred;
+        cursor: pointer;
+    }
+    a:active{
+        background: rgb(62, 2, 2);
+        cursor: pointer;
+        transform: scale(0.95);
+        transition: transform 0.05s ease-in-out;
+    }
+}
+
+input{
+    background: green;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+
+    
+}
+input:hover{
+    background: darkgreen;
+    cursor: pointer;
+}
+
+
+
+
+
+</style>
+<body>
+   <div class="container">
+       
+       
+       <h2>Are you sure you want to delete <br> "<span>{{item}}</span>"</h2>
+       <div class="container2">
+           <a href="{% url 'list' %}">cancel</a>
+           
+           <form action="" method="POST">
+               {% csrf_token %}
+               <input type="submit" value="Confirm">
+           
+           </form>
+       </div>
+   </div>
+
+</body>
+
+</html>

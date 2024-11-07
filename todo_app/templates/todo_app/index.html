@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Elijah's Todo list</title>
+   
+    <link rel="shortcut icon" href="{% static '/images/catppuccin--todo.svg' %}" type="image/x-icon">
+    
+  </head>
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+    integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
+    crossorigin="anonymous"
+  />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    :root{
+      --main_color: linear-gradient(to right, rgb(179, 131, 131), blue);
+    }
+    body{
+      background: var(--main_color);
+    
+ 
+    }
+
+    .container{
+                 
+      width: fit-content ;
+      margin: 20px auto;
+      padding: 20px;
+      background-color: #aea4a4ac;
+      border-radius: 3px;
+      box-shadow: 6px 2px 30px 0px rgba(0,0,0,0.75);
+    }
+
+    input[type='text']{
+      width: 83%;
+      height: 35px;
+      box-sizing: border-box;
+      margin: 8px 0;
+      padding-left: 5px;
+    }
+
+    button[type='submit']{
+      width: 15%;
+      margin-bottom: 5px;
+      
+    }
+    
+  </style>
+  <body>
+
+    <!--  -->
+    <div class="container">
+      <h2>To-do List</h2>
+
+      <!-- Form for the input and submit -->
+      <form method="POST" action="/">
+         <!--the '/' signifies that when it is submitted, it would remain in the base directory-->
+
+        {% csrf_token %} {{form.title}}
+
+        <!-- Submit -->
+        <!-- <input class="btn btn-info" type="submit" name="Create Task" value="submit"/> -->
+         <button class="btn btn-info" type="submit"><img src="{% static '/images/formkit--submit.svg' %}" alt="delete"></button>
+
+         <!-- Main Form -->
+      </form>
+      {% for task in tasks %}
+      <div>
+
+        <!-- Modify button -->
+        <a class="btn btn-sm btn-info" href="{% url 'modify' task.id %}"><img src="{% static '/images/ic--round-edit.svg' %}" alt="modify"></a>
+
+        <!-- Delete Button -->
+        <a class="btn btn-danger" href="{% url 'delete' task.id %}"><img src="{% static '/images/ic--baseline-delete.svg' %}" alt="delete"></a><br />
+
+        
+        <!-- Condition for Completion -->
+        {% if task.complete == True %}
+        <ul>
+          <!-- Strike task -->
+          <li><del> {{task }}</del></li>
+         
+        </ul>
+        {% else%}
+        <ul>
+          <!-- Display task without a line through it -->
+          <li><span>{{task}}</span></li>
+        </ul>
+        {% endif %}
+      </div>
+      <br />
+      {% endfor %}
+    </div>
+  </body>
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+    crossorigin="anonymous"
+  ></script>
+</html>
